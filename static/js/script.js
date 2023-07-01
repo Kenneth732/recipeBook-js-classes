@@ -12,5 +12,7 @@ class Recipe {
     }
   }
   
+  class RecipeBook {
 
+  });
   
