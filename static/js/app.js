@@ -22,6 +22,14 @@ class Recipe {
       this.recipes.push(recipe);
     }
   
+    viewRecipes() {
+      this.recipes.forEach((recipe, index) => {
+        console.log("Recipe: " + (index + 1));
+        recipe.displayDetails();
+        console.log("-------------------");
+      });
+    }
+  
 
   }
 
