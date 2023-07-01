@@ -13,6 +13,14 @@ class Recipe {
   }
   
   class RecipeBook {
-
+    constructor() {
+      this.recipes = [];
+    }
+  
+    addRecipe(title, ingredients, instructions) {
+      const recipe = new Recipe(title, ingredients, instructions);
+      this.recipes.push(recipe);
+    }
+  
   });
   
