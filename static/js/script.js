@@ -58,5 +58,16 @@ class Recipe {
   
   const recipeBook = new RecipeBook();
   
+  const addRecipeForm = document.querySelector('#add-recipe-form');
+  addRecipeForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+  
+    const titleInput = document.querySelector('#title-input').value;
+    const ingredientsInput = document.querySelector('#ingredients-input').value.split(',');
+    const instructionsInput = document.querySelector('#instructions-input').value;
+  
+    recipeBook.addRecipe(titleInput, ingredientsInput, instructionsInput);
+    addRecipeForm.reset();
+    recipeBook.viewRecipes();
   });
   
