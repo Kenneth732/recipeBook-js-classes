@@ -56,5 +56,7 @@ class Recipe {
     }
   }
   
+  const recipeBook = new RecipeBook();
+  
   });
   
