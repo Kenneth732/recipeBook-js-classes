@@ -46,5 +46,15 @@ class Recipe {
       });
     }
   
+    deleteRecipe(index) {
+      if (index >= 0 && index < this.recipes.length) {
+        this.recipes.splice(index, 1);
+        console.log("Recipe deleted successfully.");
+      } else {
+        console.log("Failed to delete recipe. Invalid index.");
+      }
+    }
+  }
+  
   });
   
