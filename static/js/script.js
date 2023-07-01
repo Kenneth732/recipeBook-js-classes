@@ -22,5 +22,29 @@ class Recipe {
       this.recipes.push(recipe);
     }
   
+    viewRecipes() {
+      const recipesList = document.querySelector('#recipes-list');
+      recipesList.innerHTML = '';
+  
+      this.recipes.forEach((recipe, index) => {
+        const recipeElement = document.createElement('div');
+        recipeElement.classList.add('recipe');
+        recipeElement.innerHTML = "<h4>" + recipe.title + "</h4>" +
+          "<p><strong>Ingredients:</strong> " + recipe.ingredients.join(", ") + "</p>" +
+          "<p><strong>Instructions:</strong> " + recipe.instructions + "</p>" +
+          "<button class='delete-button' data-index='" + index + "'>Delete Recipe</button>";
+  
+        // Event listener for the delete button
+        const deleteButton = recipeElement.querySelector(".delete-button");
+        deleteButton.addEventListener("click", () => {
+          const index = parseInt(deleteButton.getAttribute("data-index"));
+          this.deleteRecipe(index);
+          this.viewRecipes();
+        });
+  
+        recipesList.appendChild(recipeElement);
+      });
+    }
+  
   });
   
