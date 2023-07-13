@@ -98,3 +98,105 @@ Input, ingredientsInput, instructionsInput);
 - The form is reset to clear the input fields.
 - The `viewRecipes` method of the `recipeBook` instance is called to update the displayed recipes on the page.
 
+
+
+#coming up next project Setters and Getters: 
+class Recipe {
+  constructor(title, ingredients, instructions) {
+    this._title = title;
+    this._ingredients = ingredients;
+    this._instructions = instructions;
+  }
+
+  get title() {
+    return this._title;
+  }
+
+  set title(newTitle) {
+    this._title = newTitle;
+  }
+
+  get ingredients() {
+    return this._ingredients;
+  }
+
+  set ingredients(newIngredients) {
+    this._ingredients = newIngredients;
+  }
+
+  get instructions() {
+    return this._instructions;
+  }
+
+  set instructions(newInstructions) {
+    this._instructions = newInstructions;
+  }
+
+  displayDetails() {
+    console.log("Title: " + this.title);
+    console.log("Ingredients: " + this.ingredients.join(", "));
+    console.log("Instructions: " + this.instructions);
+  }
+}
+
+class RecipeBook {
+  constructor() {
+    this._recipes = [];
+  }
+
+  get recipes() {
+    return this._recipes;
+  }
+
+  addRecipe(title, ingredients, instructions) {
+    const recipe = new Recipe(title, ingredients, instructions);
+    this.recipes.push(recipe);
+  }
+
+  viewRecipes() {
+    const recipesList = document.querySelector('#recipes-list');
+    recipesList.innerHTML = '';
+
+    this.recipes.forEach((recipe, index) => {
+      const recipeElement = document.createElement('div');
+      recipeElement.classList.add('recipe');
+      recipeElement.innerHTML = "<h4>" + recipe.title + "</h4>" +
+        "<p><strong>Ingredients:</strong> " + recipe.ingredients.join(", ") + "</p>" +
+        "<p><strong>Instructions:</strong> " + recipe.instructions + "</p>" +
+        "<button class='delete-button' data-index='" + index + "'>Delete Recipe</button>";
+
+      // Event listener for the delete button
+      const deleteButton = recipeElement.querySelector(".delete-button");
+      deleteButton.addEventListener("click", () => {
+        const index = parseInt(deleteButton.getAttribute("data-index"));
+        this.deleteRecipe(index);
+        this.viewRecipes();
+      });
+
+      recipesList.appendChild(recipeElement);
+    });
+  }
+
+  deleteRecipe(index) {
+    if (index >= 0 && index < this.recipes.length) {
+      this.recipes.splice(index, 1);
+      console.log("Recipe deleted successfully.");
+    } else {
+      console.log("Failed to delete recipe. Invalid index.");
+    }
+  }
+}
+
+const recipeBook = new RecipeBook();
+
+const addRecipeForm = document.querySelector('#add-recipe-form');
+addRecipeForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  const titleInput = document.querySelector('#title-input').value;
+  const ingredientsInput = document.querySelector('#ingredients-input').value.split(',');
+  const instructionsInput = document.querySelector('#instructions-input').value;
+
+  recipeBook.addRecipe(titleInput, ingredientsInput, instructionsInput);
+  recipeBook.viewRecipes();
+});
